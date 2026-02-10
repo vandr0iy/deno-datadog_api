@@ -99,22 +99,20 @@ export default class DatadogTeamsApi {
   }
 
   /** Create a team */
-  async createTeam(name: string): Promise<string> {
-    const words = [...name.toLowerCase().matchAll(/[a-z0-9]+/g)].map((x) => x[0])
-    const handle = words.join("-")
+  async createTeam(attributes: {
+    name: string;
+    handle: string;
+  }): Promise<string> {
     const json = await this.#api.fetchJson({
       method: "POST",
       path: `/api/v2/team`,
       body: {
         data: {
           type: "team",
-          attributes: {
-            name: name,
-            handle: handle
-          },
-          relationships: {}
-        }
-      }
+          attributes,
+          relationships: {},
+        },
+      },
     });
     return (json as { status: string }).status;
   }
@@ -139,17 +137,17 @@ export default class DatadogTeamsApi {
           type: "team_memberships",
           id: teamId,
           attributes: {
-            role: "admin"
+            role: "admin",
           },
           relationships: {
             user: {
               data: {
                 type: "users",
-                id: userId
-              }
-            }
-          }
-        }
+                id: userId,
+              },
+            },
+          },
+        },
       },
     });
     return (json as { status: string }).status;
