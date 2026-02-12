@@ -10,7 +10,7 @@ const commonFields = {
   host_name: Deno.hostname(),
   tags: [
     `kernel:${Deno.osRelease()}`,
-    `isatty:${Deno.isatty(Deno.stdin.rid)}`,
+    `isatty:${Deno.stdin.isTerminal()}`,
   ],
 };
 
