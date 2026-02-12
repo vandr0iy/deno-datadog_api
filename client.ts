@@ -37,7 +37,7 @@ export default class DatadogApiClient {
   }
 
   async fetchJson(opts: {
-    method?: 'GET' | 'POST';
+    method?: 'GET' | 'POST' | 'DELETE';
     path: string;
     query?: URLSearchParams;
     body?: unknown;
